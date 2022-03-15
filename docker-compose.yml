@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+  zookeeper:
+    build:
+      context: ./zookeeper/
+      dockerfile: .build/Dockerfile
+    container_name: zookeeper
+    ports:
+      - 2181:2181
+    restart: always
+    environment:
+      ZOO_MY_ID: 1
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+  kafka:
+    build:
+      context: ./kafka/
+      dockerfile: .build/Dockerfile
+    container_name: kafka
+    restart: always
+    ports:
+      - 9092:9092
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
